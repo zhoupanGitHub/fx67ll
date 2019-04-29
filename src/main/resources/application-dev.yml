@@ -1,0 +1,75 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://sql.m8265.vhostgo.com:3306/fx67ll
+    username: fx67ll
+    password: zsplat5859
+    sql-script-encoding: UTF-8
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+    stat-view-servlet:
+        url-pattern: /druid/*
+        reset-enable: true
+        login-username: druid
+        login-password: druid
+    web-stat-filter:
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+  http:
+    encoding:
+      force: true
+      enabled: true
+      charset: UTF-8
+  servlet:
+    multipart:
+      enabled: true
+      location: /home
+      file-size-threshold: 2
+      max-file-size: 100MB
+      max-request-size: 100MB
+# Spring boot 开启reponse压缩
+# http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#how-to-enable-http-response-compression
+server:
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 4096
+  servlet:
+    session:
+      timeout: 30
+    context-path: /fx67ll
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 30
+#logging:
+#  level:
+#    com:
+#      zsplat:
+#        fx67ll:
+#          app: DEBUG
+#  config: src/main/resources/logback.xml
+# pagehelper分页插件
+pagehelper:
+    helperDialect: oracle
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+debug: true
+#mybatis配置
+mybatis:
+  #映射文件路径
+  mapper-locations: classpath*:/mapper/*/*Mapper.xml
+  configuration:
+    call-setters-on-nulls: true # 返回Map集合时，针对空值字段强行返回
